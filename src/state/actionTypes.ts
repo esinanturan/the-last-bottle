@@ -1,0 +1,7 @@
+export const GENERATE_CELLS = "GENERATE_CELLS";
+export const UPDATE_CELLS = "UPDATE_CELLS";
+export const RESET_CELLS = "RESET_CELLS";
+
+export const UPDATE_USER_DETAILS = "UPDATE_DETAILS";
+export const UPDATE_DETAILS = "UPDATE_RESULT";
+export const RESET_DETAILS = "RESET_DETAILS";

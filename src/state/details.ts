@@ -5,9 +5,7 @@ import {
 } from "state/actionTypes";
 import { Direction } from "helpers/types";
 import { getRandomArea, getRandomPosition } from "helpers";
-import { COLUMNS, ROWS } from "constants/board";
-
-const startPosition = getRandomPosition(ROWS, COLUMNS);
+import { RANGE } from "constants/board";
 
 export type DetailState = {
   isHenryTurn: boolean;
@@ -22,18 +20,37 @@ export type DetailState = {
   started: boolean;
 };
 
-export const detailInitialState: () => DetailState = () => ({
+export const detailsDefaultState: DetailState = {
   isHenryTurn: false,
-  startPosition,
-  gpAreaPosition: getRandomArea(ROWS, COLUMNS),
-  henryPosition: startPosition,
-  bottlePosition: startPosition,
+  startPosition: [0, 0],
+  gpAreaPosition: [],
+  henryPosition: [0, 0],
+  bottlePosition: [0, 0],
   direction: null,
   step: 0,
   winner: null,
   done: false,
   started: false,
-});
+};
+
+export const initializeDetailState: (
+  rows: number,
+  columns: number
+) => DetailState = (rows: number, columns: number) => {
+  const startPosition = getRandomPosition(rows, columns);
+  return {
+    isHenryTurn: false,
+    startPosition,
+    gpAreaPosition: rows ? getRandomArea(rows, columns, RANGE) : [],
+    henryPosition: rows ? startPosition : [0, 0],
+    bottlePosition: rows ? startPosition : [0, 0],
+    direction: null,
+    step: 0,
+    winner: null,
+    done: false,
+    started: false,
+  };
+};
 
 export const detailsReducer = (
   context: DetailState,
@@ -56,9 +73,8 @@ export const detailsReducer = (
     };
   }
   if (action.type === RESET_DETAILS) {
-    return {
-      ...detailInitialState(),
-    };
+    const { rows, columns } = action.data;
+    return initializeDetailState(rows, columns);
   }
   return context;
 };

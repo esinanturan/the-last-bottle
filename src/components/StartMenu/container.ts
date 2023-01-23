@@ -1,11 +1,13 @@
 import { hoc, updateArea, updateCells } from "helpers";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { AppContext } from "state";
 import { RESET_CELLS, RESET_DETAILS, UPDATE_DETAILS } from "state/actionTypes";
 
 const container = hoc((props) => {
   const { state, dispatch } = useContext(AppContext);
-  const { details } = state;
+  const { details, board } = state;
+  const { rows, columns } = board;
+
   const {
     startPosition,
     bottlePosition,
@@ -16,12 +18,18 @@ const container = hoc((props) => {
     winner,
   } = details;
 
-  const handleStart = useCallback(() => {
+  const initiliazeDetails = useCallback(() => {
     updateCells(startPosition, { isStart: true })(dispatch);
     updateCells(henryPosition, { isHenry: true })(dispatch);
     updateArea(gpAreaPosition, { isGPArea: true })(dispatch);
     updateCells(bottlePosition, { isBottle: true })(dispatch);
+  }, [bottlePosition, gpAreaPosition, henryPosition, startPosition, dispatch]);
 
+  const handleStart = useCallback(() => {
+    dispatch({
+      type: RESET_DETAILS,
+      data: { rows, columns },
+    });
     dispatch({
       type: UPDATE_DETAILS,
       data: {
@@ -29,7 +37,7 @@ const container = hoc((props) => {
         done: false,
       },
     });
-  }, [bottlePosition, gpAreaPosition, henryPosition, startPosition, dispatch]);
+  }, [columns, rows, dispatch]);
 
   const handleReset = useCallback(() => {
     dispatch({
@@ -37,8 +45,15 @@ const container = hoc((props) => {
     });
     dispatch({
       type: RESET_DETAILS,
+      data: { rows, columns },
     });
-  }, [dispatch]);
+  }, [dispatch, rows, columns]);
+
+  useEffect(() => {
+    if (started) {
+      initiliazeDetails();
+    }
+  }, [started, initiliazeDetails]);
 
   return {
     ...props,

@@ -1,19 +1,11 @@
 import { getOppositeDirection } from "./findRelativeCoords";
 import { Direction } from "./types";
+import { DIRECTIONS } from "constants/board";
 
 export const rollDice = (
   playerDirection: Direction | null
 ): [Direction, number] => {
-  let directions = [
-    "north",
-    "north-east",
-    "east",
-    "south-east",
-    "south",
-    "south-west",
-    "west",
-    "north-west",
-  ];
+  let directions = DIRECTIONS;
 
   if (playerDirection) {
     const opposite = getOppositeDirection(playerDirection);

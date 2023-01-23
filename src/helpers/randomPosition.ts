@@ -7,19 +7,17 @@ export const getRandomPosition = (
   return [randomRow, randomCol];
 };
 
-export const getRandomArea = (numRows: number, numCols: number) => {
-  // get random area of 3x3
+export const getRandomArea = (
+  numRows: number,
+  numCols: number,
+  range: number
+) => {
   const [randomRow, randomCol] = getRandomPosition(numRows, numCols);
-  const randomArea = [
-    [randomRow, randomCol],
-    [randomRow, randomCol + 1],
-    [randomRow, randomCol + 2],
-    [randomRow + 1, randomCol],
-    [randomRow + 1, randomCol + 1],
-    [randomRow + 1, randomCol + 2],
-    [randomRow + 2, randomCol],
-    [randomRow + 2, randomCol + 1],
-    [randomRow + 2, randomCol + 2],
-  ];
+  const randomArea = [];
+  for (let row = randomRow; row < randomRow + range; row++) {
+    for (let col = randomCol; col < randomCol + range; col++) {
+      randomArea.push([row, col]);
+    }
+  }
   return randomArea;
 };

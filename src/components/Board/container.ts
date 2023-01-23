@@ -12,6 +12,9 @@ const container = hoc((props) => {
 
   const checkResult = useCallback(() => {
     const [row, col] = henryPosition;
+
+    if (cells.length === 0) return;
+
     const currentPosition = cells[row][col];
     if (
       currentPosition.isGPArea ||
@@ -21,7 +24,7 @@ const container = hoc((props) => {
         type: UPDATE_DETAILS,
         data: {
           winner: "Henry",
-          done: 1,
+          done: true,
           started: false,
         },
       });
@@ -35,7 +38,7 @@ const container = hoc((props) => {
         type: UPDATE_DETAILS,
         data: {
           winner: "Bottle",
-          done: 1,
+          done: true,
           started: false,
         },
       });

@@ -93,10 +93,12 @@ const container = hoc((props) => {
 
     const [newDirection, step] = rollDice(direction);
 
+    const playerPosition = isHenryTurn ? henryPosition : bottlePosition;
+
     const [newRow, newCol] = findRelativeCoords(
       newDirection,
       step,
-      henryPosition,
+      playerPosition,
       ROWS,
       COLUMNS
     );
@@ -105,13 +107,27 @@ const container = hoc((props) => {
       row: newRow,
       col: newCol,
     });
-  }, [direction, henryPosition, disabled, updatePlayerDetailsAndPosition]);
+  }, [
+    direction,
+    henryPosition,
+    disabled,
+    bottlePosition,
+    isHenryTurn,
+    updatePlayerDetailsAndPosition,
+  ]);
+
+  const autoPlayBottle = useCallback(() => {
+    if (isHenryTurn) return;
+    if (done) return;
+
+    setTimeout(() => {
+      handleRollDice();
+    }, 1000);
+  }, [handleRollDice, isHenryTurn, done]);
 
   useEffect(() => {
-    if (isHenryTurn) return;
-
-    handleRollDice();
-  }, [isHenryTurn, handleRollDice]);
+    autoPlayBottle();
+  }, [autoPlayBottle, isHenryTurn]);
 
   return {
     ...props,

@@ -13,22 +13,21 @@ export const StyledContainer = styled.div`
   span {
     margin-right: 0.5rem;
   }
-  span.bottle {
+  span.cell {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background: #00f;
-  }
-  span.henry {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: #ff0;
-  }
-  span.gp {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: #f00;
+    &.bottle {
+      background: #000;
+    }
+    &.start {
+      background: #00f;
+    }
+    &.henry {
+      background: #ff0;
+    }
+    &.gp {
+      background: #f00;
+    }
   }
 `;

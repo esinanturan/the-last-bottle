@@ -1,12 +1,6 @@
-export type Direction =
-  | "north"
-  | "south"
-  | "west"
-  | "east"
-  | "north-east"
-  | "north-west"
-  | "south-east"
-  | "south-west";
+import { DIRECTION_MAP } from "constants/board";
+
+export type Direction = DIRECTION_MAP;
 
 export type Cell = {
   id: string;

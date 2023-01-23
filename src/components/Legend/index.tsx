@@ -6,15 +6,15 @@ const Legend = () => {
     <StyledContainer>
       <div className="wrapper">
         <div className="flex">
-          <span className="bottle" />
+          <span className="cell bottle" />
           <span>Bottle</span>
         </div>
         <div className="flex">
-          <span className="henry" />
+          <span className="cell henry" />
           <span>You</span>
         </div>
         <div className="flex">
-          <span className="gp" />
+          <span className="cell gp" />
           <span>GPgp Great Pasific garbage patch </span>
         </div>
       </div>

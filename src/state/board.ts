@@ -1,17 +1,23 @@
 import { Cell } from "helpers/types";
-import { RESET_CELLS, UPDATE_CELLS } from "./actionTypes";
+import { INIT_CELLS, RESET_CELLS, UPDATE_CELLS } from "./actionTypes";
 import { generateCells } from "helpers";
 import { COLUMNS, ROWS } from "constants/board";
 
 export type BoardState = {
   cells: Cell[][];
+  rows?: number;
+  columns?: number;
 };
 
-export const boardInitialState: BoardState = {
-  cells: generateCells(ROWS, COLUMNS),
-};
+export const boardInitialState: () => BoardState = () => ({
+  cells: [],
+});
 
 export const boardReducer = (context: any, action: any) => {
+  if (action.type === INIT_CELLS) {
+    const { rows, columns } = action.data;
+    return { cells: generateCells(rows, columns), rows, columns };
+  }
   if (action.type === UPDATE_CELLS) {
     const newCells = [...context.cells];
     const { position, value } = action.data;
@@ -27,8 +33,10 @@ export const boardReducer = (context: any, action: any) => {
   }
   if (action.type === RESET_CELLS) {
     return {
-      cells: generateCells(ROWS, COLUMNS),
+      ...context,
+      cells: generateCells(context.rows, context.columns),
     };
   }
+
   return context;
 };

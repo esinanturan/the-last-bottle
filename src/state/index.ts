@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { BoardState, boardInitialState } from "./board";
-import { DetailState, detailInitialState } from "./details";
+import { DetailState, detailsDefaultState } from "./details";
 
 export type State = {
   board: BoardState;
@@ -8,8 +8,8 @@ export type State = {
 };
 
 export const initialState: State = {
-  board: boardInitialState,
-  details: detailInitialState(),
+  board: boardInitialState(),
+  details: detailsDefaultState,
 };
 
 export const AppContext = createContext<{

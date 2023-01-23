@@ -7,14 +7,16 @@ const ControlMenu = ({
   handleRollDice,
   direction,
   step,
+  forwardedRef,
 }: {
   handleRollDice: () => void;
   direction: Direction;
   step: number;
   disabled: boolean;
+  forwardedRef: React.RefObject<HTMLDivElement>;
 }) => {
   return (
-    <MenuContainer>
+    <MenuContainer ref={forwardedRef}>
       <div>
         <button onClick={handleRollDice}>Roll Dice</button>
       </div>

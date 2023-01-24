@@ -1,6 +1,5 @@
-import { useContext } from "react";
+import { useContext, useCallback, useEffect } from "react";
 import { hoc } from "helpers";
-import { useCallback, useEffect } from "react";
 import { AppContext } from "state";
 import { UPDATE_DETAILS } from "state/actionTypes";
 

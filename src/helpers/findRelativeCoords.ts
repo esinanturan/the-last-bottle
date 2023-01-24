@@ -1,3 +1,4 @@
+import { DIRECTION_MAP, DIRECTIONS } from "constants/board";
 import { Direction } from "./types";
 
 export const findRelativeCoords = (
@@ -9,31 +10,31 @@ export const findRelativeCoords = (
 ) => {
   let [currentRow, currentCol] = positions;
   switch (direction) {
-    case "north":
+    case DIRECTION_MAP.north:
       currentRow -= steps;
       break;
-    case "south":
+    case DIRECTION_MAP.south:
       currentRow += steps;
       break;
-    case "west":
+    case DIRECTION_MAP.west:
       currentCol -= steps;
       break;
-    case "east":
+    case DIRECTION_MAP.east:
       currentCol += steps;
       break;
-    case "north-east":
+    case DIRECTION_MAP.northEast:
       currentRow -= steps;
       currentCol += steps;
       break;
-    case "north-west":
+    case DIRECTION_MAP.northWest:
       currentRow -= steps;
       currentCol -= steps;
       break;
-    case "south-east":
+    case DIRECTION_MAP.southEast:
       currentRow += steps;
       currentCol += steps;
       break;
-    case "south-west":
+    case DIRECTION_MAP.southWest:
       currentRow += steps;
       currentCol -= steps;
       break;
@@ -53,18 +54,7 @@ export const findRelativeCoords = (
   return [currentRow, currentCol];
 };
 
-const directions = [
-  "north",
-  "north-east",
-  "east",
-  "south-east",
-  "south",
-  "south-west",
-  "west",
-  "north-west",
-];
-
 export const getOppositeDirection = (direction: Direction) => {
-  const index = directions.indexOf(direction);
-  return directions[(index + directions.length / 2) % directions.length];
+  const index = DIRECTIONS.indexOf(direction);
+  return DIRECTIONS[(index + DIRECTIONS.length / 2) % DIRECTIONS.length];
 };

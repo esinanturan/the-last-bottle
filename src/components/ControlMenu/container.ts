@@ -1,19 +1,17 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import { findRelativeCoords, hoc, rollDice } from "helpers";
 import { AppContext } from "state";
 import { Direction } from "helpers/types";
 import { UPDATE_CELLS, UPDATE_USER_DETAILS } from "state/actionTypes";
-import {
-  BOTTLE_POSITION,
-  COLUMNS,
-  HENRY_POSITION,
-  ROWS,
-} from "constants/board";
+import { BOTTLE_POSITION, HENRY_POSITION } from "constants/board";
 
 const container = hoc((props) => {
   const { state, dispatch } = useContext(AppContext);
 
-  const { details } = state;
+  const { details, board } = state;
+  const { rows, columns } = board;
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const {
     bottlePosition,
@@ -99,8 +97,8 @@ const container = hoc((props) => {
       newDirection,
       step,
       playerPosition,
-      ROWS,
-      COLUMNS
+      rows!,
+      columns!
     );
 
     updatePlayerDetailsAndPosition(newDirection, step, {
@@ -113,6 +111,8 @@ const container = hoc((props) => {
     disabled,
     bottlePosition,
     isHenryTurn,
+    rows,
+    columns,
     updatePlayerDetailsAndPosition,
   ]);
 
@@ -120,13 +120,18 @@ const container = hoc((props) => {
     if (isHenryTurn) return;
     if (done) return;
 
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       handleRollDice();
     }, 1000);
   }, [handleRollDice, isHenryTurn, done]);
 
   useEffect(() => {
     autoPlayBottle();
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [autoPlayBottle, isHenryTurn]);
 
   return {

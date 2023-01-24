@@ -23,7 +23,7 @@ export type DetailState = {
 export const detailsDefaultState: DetailState = {
   isHenryTurn: false,
   startPosition: [0, 0],
-  gpAreaPosition: [],
+  gpAreaPosition: [[0, 0]],
   henryPosition: [0, 0],
   bottlePosition: [0, 0],
   direction: null,

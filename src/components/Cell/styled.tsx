@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
 const StyledCell = styled.span`
-  padding: 3px 6px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #000;
+  box-sizing: border-box;
   font-size: 0.9rem;
-  display: inline-block;
   ${({
     isHenry,
     isBottle,

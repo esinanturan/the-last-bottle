@@ -1,7 +1,6 @@
 import { Cell } from "helpers/types";
 import { INIT_CELLS, RESET_CELLS, UPDATE_CELLS } from "./actionTypes";
 import { generateCells } from "helpers";
-import { COLUMNS, ROWS } from "constants/board";
 
 export type BoardState = {
   cells: Cell[][];
@@ -16,7 +15,12 @@ export const boardInitialState: () => BoardState = () => ({
 export const boardReducer = (context: any, action: any) => {
   if (action.type === INIT_CELLS) {
     const { rows, columns } = action.data;
-    return { cells: generateCells(rows, columns), rows, columns };
+
+    return {
+      cells: generateCells(rows, columns),
+      rows,
+      columns,
+    };
   }
   if (action.type === UPDATE_CELLS) {
     const newCells = [...context.cells];

@@ -8,7 +8,7 @@ const XBoard = ({ cells }: { cells: Cell[][] }) => {
   return (
     <StyledBoard>
       {cells.map((row: Cell[], rowIndex: number) => (
-        <div key={rowIndex}>
+        <div className="row" key={rowIndex}>
           {row.map((cell: Cell) => {
             return <CellComp key={cell.id} cell={cell} />;
           })}

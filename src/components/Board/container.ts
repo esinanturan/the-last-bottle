@@ -12,12 +12,12 @@ const container = hoc((props) => {
   const checkResult = useCallback(() => {
     const [row, col] = henryPosition;
 
-    if (cells.length === 0) return;
+    if (cells.length === 0 || !cells[row]) return;
 
     const currentPosition = cells[row][col];
     if (
-      currentPosition.isGPArea ||
-      (currentPosition.isBottle && !currentPosition.isStart)
+      (currentPosition && currentPosition.isGPArea) ||
+      (currentPosition && currentPosition.isBottle && !currentPosition.isStart)
     ) {
       dispatch({
         type: UPDATE_DETAILS,
@@ -32,7 +32,7 @@ const container = hoc((props) => {
     const [bottleRow, bottleCol] = bottlePosition;
     const currentBottlePosition = cells[bottleRow][bottleCol];
 
-    if (currentBottlePosition.isGPArea) {
+    if (currentBottlePosition && currentBottlePosition.isGPArea) {
       dispatch({
         type: UPDATE_DETAILS,
         data: {

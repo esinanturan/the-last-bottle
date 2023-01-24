@@ -1,3 +1,4 @@
+import React from "react";
 import { Cell } from "helpers/types";
 import StyledCell from "./styled";
 

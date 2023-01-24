@@ -53,7 +53,14 @@ const container = hoc((props) => {
     if (started) {
       initiliazeDetails();
     }
-  }, [started, initiliazeDetails]);
+  }, [
+    started,
+    initiliazeDetails,
+    startPosition,
+    bottlePosition,
+    henryPosition,
+    gpAreaPosition,
+  ]);
 
   return {
     ...props,
